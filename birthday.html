@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>HAPPY BIRTHDAY COOPER</title>
+<style>
+@font-face {
+  font-family: 'Harbour';
+  src: url('fonts/Harbour-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a0a0f;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Harbour', Impact, "Arial Black", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+canvas#eq {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#center {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(12px, 3vw, 28px);
+}
+
+#title-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 3vw, 24px);
+}
+
+#title {
+  font-size: clamp(28px, 8vw, 100px);
+  line-height: 1.05;
+  text-align: center;
+  letter-spacing: 2px;
+  white-space: nowrap;
+  color: #ffffff;
+}
+
+#smirk {
+  width: clamp(80px, 18vw, 240px);
+  height: auto;
+  flex-shrink: 0;
+}
+
+#message {
+  position: fixed;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(14px, 4vw, 42px);
+  text-align: center;
+  letter-spacing: clamp(1px, 1vw, 4px);
+  white-space: nowrap;
+  color: #ffffff;
+  opacity: 0;
+  z-index: 30;
+}
+
+#overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: url('background.png') center center / cover no-repeat;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#overlay span {
+  font-family: 'Harbour', Impact, sans-serif;
+  font-size: clamp(16px, 4vw, 36px);
+  letter-spacing: 6px;
+  color: #000;
+}
+
+#plane {
+  position: fixed;
+  width: clamp(180px, 40vw, 500px);
+  height: auto;
+  z-index: 25;
+  opacity: 0;
+  transition: none;
+  transform-origin: center center;
+}
+
+#thumb {
+  position: fixed;
+  z-index: 26;
+  width: clamp(160px, 35vw, 600px);
+  height: auto;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#explosion {
+  position: fixed;
+  z-index: 27;
+  pointer-events: none;
+  opacity: 0;
+}
+
+#creep2 {
+  position: fixed;
+  left: clamp(5px, 2vw, 40px);
+  top: 50%;
+  width: clamp(120px, 28vw, 380px);
+  height: auto;
+  z-index: 25;
+  opacity: 0;
+}
+
+@keyframes creepSpin {
+  0%   { opacity: 1; transform: translateY(-50%) rotate(0deg); }
+  90%  { opacity: 1; transform: translateY(-50%) rotate(1080deg); }
+  100% { opacity: 0; transform: translateY(-50%) rotate(1080deg); }
+}
+
+#thomasdog {
+  position: fixed;
+  width: clamp(160px, 38vw, 480px);
+  height: auto;
+  z-index: 25;
+  opacity: 0;
+  transform-origin: center center;
+  pointer-events: none;
+}
+
+#c4img {
+  position: fixed;
+  width: clamp(80px, 18vw, 380px);
+  height: auto;
+  z-index: 28;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+#explosionimg {
+  position: fixed;
+  width: clamp(160px, 40vw, 600px);
+  height: auto;
+  z-index: 29;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+}
+
+#countdown {
+  position: fixed;
+  font-family: Impact, sans-serif;
+  font-size: clamp(60px, 14vw, 140px);
+  color: #ff0000;
+  text-shadow: 3px 3px 0 #000, -1px -1px 0 #000;
+  z-index: 29;
+  opacity: 0;
+  text-align: center;
+  pointer-events: none;
+}
+
+#hatsune-wrap {
+  position: fixed;
+  bottom: clamp(10px, 3vh, 60px);
+  right: clamp(5px, 3vw, 80px);
+  z-index: 25;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#hatsune-bubble {
+  background: #ffffff;
+  border: 3px solid #000;
+  border-radius: 12px;
+  padding: clamp(6px, 1.5vw, 10px) clamp(8px, 2vw, 16px);
+  font-family: 'Comic Sans MS', cursive;
+  font-size: clamp(13px, 3vw, 26px);
+  color: #000;
+  text-align: center;
+  white-space: nowrap;
+  position: relative;
+  margin-bottom: 8px;
+  box-shadow: 3px 3px 0 #000;
+}
+
+#hatsune-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-top-color: #000;
+}
+
+#hatsune-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-top-color: #ffffff;
+  z-index: 1;
+}
+
+#hatsune-img {
+  width: clamp(100px, 28vw, 340px);
+  height: auto;
+}
+
+#approved {
+  position: fixed;
+  bottom: clamp(10px, 2vh, 30px);
+  left: clamp(10px, 2vw, 30px);
+  width: clamp(100px, 22vw, 280px);
+  height: auto;
+  z-index: 25;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+#approved1 {
+  position: fixed;
+  top: clamp(10px, 2vh, 30px);
+  right: clamp(10px, 2vw, 30px);
+  width: clamp(100px, 22vw, 280px);
+  height: auto;
+  z-index: 25;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+#theend {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Harbour', Impact, sans-serif;
+  font-size: clamp(40px, 12vw, 130px);
+  color: #ffffff;
+  letter-spacing: 4px;
+  text-align: center;
+  z-index: 30;
+  opacity: 0;
+  transition: opacity 2s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+#burrito {
+  position: fixed;
+  top: clamp(10px, 2vh, 20px);
+  left: clamp(10px, 2vw, 20px);
+  width: clamp(100px, 22vw, 300px);
+  height: auto;
+  z-index: 25;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+</style>
+</head>
+<body>
+
+<div id="overlay"><span>click for celebration</span></div>
+<canvas id="eq"></canvas>
+
+<div id="message"></div>
+<div id="countdown"></div>
+<img id="c4img" src="c4.png" alt="">
+<img id="explosionimg" src="explosion.png" alt="">
+<img id="burrito" src="burrito.png" alt="">
+<img id="approved" src="approved.png" alt="">
+<img id="approved1" src="approved1.png" alt="">
+<div id="theend">THE END</div>
+<div id="hatsune-wrap">
+  <div id="hatsune-bubble">You have yourself an awesome day!</div>
+  <img id="hatsune-img" src="hatsune.png" alt="">
+</div>
+<img id="thomasdog" src="thomasdog.png" alt="">
+<img id="creep2" src="creep2.png" alt="">
+<img id="plane" src="plane.png" alt="">
+<img id="thumb" src="thumb.png" alt="">
+<canvas id="explosion" width="1200" height="1200"></canvas>
+<div id="center">
+  <div id="title-row">
+    <div id="title">HAPPY BIRTHDAY<br>COOPER</div>
+    <img id="smirk" src="smirk.png" alt="">
+  </div>
+</div>
+
+<audio id="audio" src="flight.mp3" loop></audio>
+
+<script>
+const audio         = document.getElementById('audio');
+const canvas        = document.getElementById('eq');
+const ctx           = canvas.getContext('2d');
+const titleEl       = document.getElementById('title');
+const smirkEl       = document.getElementById('smirk');
+const msgEl         = document.getElementById('message');
+const creep2El      = document.getElementById('creep2');
+const thomasdogEl   = document.getElementById('thomasdog');
+const hatsuneWrapEl = document.getElementById('hatsune-wrap');
+const burritoEl     = document.getElementById('burrito');
+const approvedEl    = document.getElementById('approved');
+const approved1El   = document.getElementById('approved1');
+const theendEl      = document.getElementById('theend');
+const c4imgEl       = document.getElementById('c4img');
+const countdownEl   = document.getElementById('countdown');
+const explosionimgEl= document.getElementById('explosionimg');
+const planeEl       = document.getElementById('plane');
+const thumbEl       = document.getElementById('thumb');
+const expCanvas     = document.getElementById('explosion');
+const expCtx        = expCanvas.getContext('2d');
+
+let audioCtx, analyser, dataArray, source, ready = false;
+
+function resizeCanvas() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+// helper: get rendered size of an img element
+function imgSize(el) {
+  return { w: el.offsetWidth, h: el.offsetHeight };
+}
+
+// ── Click / tap handler ───────────────────────────────────────
+function startCelebration() {
+  document.getElementById('overlay').style.display = 'none';
+
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 512;
+  dataArray = new Uint8Array(analyser.frequencyBinCount);
+  source = audioCtx.createMediaElementSource(audio);
+  source.connect(analyser);
+  analyser.connect(audioCtx.destination);
+  ready = true;
+  audio.play();
+
+  positionThumb();
+  thumbEl.style.opacity = '1';
+
+  runWords();
+  setTimeout(animatePlane, 4000);
+  setTimeout(animateCreep2, 10000);
+  setTimeout(() => { burritoEl.style.opacity = '1'; setTimeout(() => { burritoEl.style.opacity = '0'; }, 4000); }, 6500);
+  setTimeout(startOutro, 22000);
+  setTimeout(() => { hatsuneWrapEl.style.opacity = '1'; setTimeout(() => { hatsuneWrapEl.style.opacity = '0'; }, 4000); }, 9500);
+  setTimeout(showC4, 20000);
+  setTimeout(showExplosionImg, 23250);
+  setTimeout(() => { c4imgEl.style.opacity = '0'; countdownEl.style.opacity = '0'; }, 23000);
+  setTimeout(animateThomasdog, 13000);
+}
+
+const overlayEl = document.getElementById('overlay');
+overlayEl.addEventListener('click', startCelebration);
+overlayEl.addEventListener('touchend', function(e) { e.preventDefault(); startCelebration(); });
+
+// ── Thumb positioning (top-right) ─────────────────────────────
+function positionThumb() {
+  const W = window.innerWidth;
+  const tw = thumbEl.offsetWidth || parseInt(getComputedStyle(thumbEl).width);
+  thumbEl.style.right = '0px';
+  thumbEl.style.top   = '20px';
+  thumbEl.style.left  = '';
+}
+
+// ── Rave ─────────────────────────────────────────────────────
+const titleColors = ['#ffffff','#00aaff','#00ff88','#4488ff','#00eeff','#ffffff','#33ff99','#0066ff'];
+let titleColorIdx = 0;
+let titleVisible  = true;
+let smirkVisible  = true;
+let raveActive    = true;
+
+function raveTick() {
+  if (!raveActive) return;
+  titleVisible = !titleVisible;
+  if (titleVisible) {
+    titleColorIdx = (titleColorIdx + 1) % titleColors.length;
+    titleEl.style.opacity    = '1';
+    titleEl.style.color      = titleColors[titleColorIdx];
+    titleEl.style.textShadow = `0 0 30px ${titleColors[titleColorIdx]}, 3px 3px 0 #1a0a3a`;
+  } else {
+    titleEl.style.opacity = '0';
+  }
+  smirkVisible = !smirkVisible;
+  smirkEl.style.opacity = smirkVisible ? '1' : '0';
+  setTimeout(raveTick, 80 + Math.random() * 40 - 20);
+}
+raveTick();
+
+// ── Words ─────────────────────────────────────────────────────
+const words = ['I','hope','you','have','a','good','day'];
+
+async function runWords() {
+  await new Promise(r => setTimeout(r, 2500));
+  let sentence = '';
+  for (let i = 0; i < words.length; i++) {
+    sentence += (i === 0 ? '' : ' ') + words[i];
+    msgEl.textContent = sentence;
+    msgEl.style.color      = '#ffffff';
+    msgEl.style.opacity    = '1';
+    msgEl.style.transform  = 'translateX(-50%) scale(1.15)';
+    msgEl.style.transition = 'transform 0.15s ease-out';
+    await new Promise(r => setTimeout(r, 80));
+    msgEl.style.transform = 'translateX(-50%) scale(1)';
+    await new Promise(r => setTimeout(r, 550));
+  }
+}
+
+// ── Creep2 ────────────────────────────────────────────────────
+function animateCreep2() {
+  creep2El.style.animation = 'creepSpin 3s ease-in-out forwards';
+}
+
+// ── Thomasdog orbit ───────────────────────────────────────────
+function animateThomasdog() {
+  const W    = window.innerWidth;
+  const H    = window.innerHeight;
+  const imgW = thomasdogEl.offsetWidth || parseInt(getComputedStyle(thomasdogEl).width);
+  const y    = H - imgW * 0.6 - 20;
+  const duration = 10250;
+  const laps     = 3;
+  let startTime  = null;
+  let facingRight = true;
+
+  thomasdogEl.style.top     = y + 'px';
+  thomasdogEl.style.opacity = '1';
+  thomasdogEl.style.transform = 'scaleX(1)';
+
+  function step(ts) {
+    if (!startTime) startTime = ts;
+    const elapsed  = ts - startTime;
+    const t        = Math.min(elapsed / duration, 1);
+    const pingpong = Math.sin(t * Math.PI * laps * 2);
+    const range    = W / 2 - imgW * 0.6;
+    const x        = (W / 2 - imgW / 2) + pingpong * range;
+
+    thomasdogEl.style.left = x + 'px';
+
+    const newFacingRight = pingpong >= 0;
+    if (newFacingRight !== facingRight) {
+      facingRight = newFacingRight;
+      thomasdogEl.style.transform = facingRight ? 'scaleX(1)' : 'scaleX(-1)';
+    }
+
+    if (t < 1) {
+      requestAnimationFrame(step);
+    } else {
+      const rect = thomasdogEl.getBoundingClientRect();
+      const expX = rect.left + rect.width / 2;
+      const expY = rect.top  + rect.height / 2;
+      thomasdogEl.style.opacity = '0';
+      showThomasdogExplosion(expX, expY);
+    }
+  }
+  requestAnimationFrame(step);
+}
+
+function showThomasdogExplosion(cx, cy) {
+  const expEl = document.createElement('img');
+  expEl.src = 'explosion.png';
+  const expW = Math.min(window.innerWidth * 0.5, 600);
+  expEl.style.cssText = `
+    position: fixed;
+    width: ${expW}px;
+    height: auto;
+    left: ${cx - expW/2}px;
+    top: ${cy - expW/2}px;
+    z-index: 50;
+    pointer-events: none;
+    opacity: 1;
+  `;
+  document.body.appendChild(expEl);
+  setTimeout(() => {
+    expEl.style.transition = 'opacity 0.15s ease';
+    expEl.style.opacity    = '0';
+    setTimeout(() => expEl.remove(), 200);
+  }, 500);
+}
+
+// ── Plane ─────────────────────────────────────────────────────
+function animatePlane() {
+  const W = window.innerWidth;
+  const H = window.innerHeight;
+
+  // thumb is pinned top-right; get its actual rendered rect
+  const thumbRect = thumbEl.getBoundingClientRect();
+  const thumbCX   = thumbRect.left + thumbRect.width  / 2;
+  const thumbCY   = thumbRect.top  + thumbRect.height / 2;
+
+  const planeW = planeEl.offsetWidth || parseInt(getComputedStyle(planeEl).width);
+  const planeH = planeEl.offsetHeight || planeW * 0.5;
+
+  const startX = -planeW;
+  const startY = H - planeH - 20;
+  const endX   = thumbCX - planeW / 2 - 60;
+  const endY   = thumbCY - 80;
+
+  const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+
+  planeEl.style.left      = startX + 'px';
+  planeEl.style.top       = startY + 'px';
+  planeEl.style.transform = `rotate(${angle}deg)`;
+  planeEl.style.opacity   = '1';
+
+  const duration = 21000;
+  let startTime  = null;
+
+  function step(ts) {
+    if (!startTime) startTime = ts;
+    const elapsed = ts - startTime;
+    const t       = Math.min(elapsed / duration, 1);
+    const ease    = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+
+    planeEl.style.left = (startX + (endX - startX) * ease) + 'px';
+    planeEl.style.top  = (startY + (endY - startY) * ease) + 'px';
+
+    if (t < 1) requestAnimationFrame(step);
+    else planeEl.style.opacity = '0';
+  }
+  requestAnimationFrame(step);
+}
+
+// ── C4 + Countdown ────────────────────────────────────────────
+function showC4() {
+  const thumbRect = thumbEl.getBoundingClientRect();
+  const c4W  = c4imgEl.offsetWidth  || parseInt(getComputedStyle(c4imgEl).width);
+  const c4H  = c4imgEl.offsetHeight || c4W;
+
+  // center c4 horizontally under thumb
+  const c4Left = thumbRect.left + thumbRect.width / 2 - c4W / 2;
+  const c4Top  = thumbRect.bottom - 30; // just below thumb bottom
+
+  c4imgEl.style.left    = c4Left + 'px';
+  c4imgEl.style.top     = c4Top  + 'px';
+  c4imgEl.style.opacity = '1';
+
+  const cdSize = Math.min(window.innerWidth * 0.18, 140);
+  countdownEl.style.fontSize = cdSize + 'px';
+  countdownEl.style.left     = (c4Left + c4W / 2 - cdSize * 0.4) + 'px';
+  countdownEl.style.top      = (c4Top + c4H + 4) + 'px';
+
+  const ticks = ['3','2','1'];
+  ticks.forEach((n, i) => {
+    setTimeout(() => {
+      countdownEl.textContent  = n;
+      countdownEl.style.opacity   = '1';
+      countdownEl.style.transform = 'scale(1.4)';
+      countdownEl.style.transition = 'none';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        countdownEl.style.transition = 'transform 0.8s ease-out, opacity 0.2s ease 0.8s';
+        countdownEl.style.transform  = 'scale(1)';
+        if (i === 2) setTimeout(() => { countdownEl.style.opacity = '0'; }, 800);
+      }));
+    }, i * 1000);
+  });
+}
+
+function showExplosionImg() {
+  const thumbRect = thumbEl.getBoundingClientRect();
+  const expW = explosionimgEl.offsetWidth || parseInt(getComputedStyle(explosionimgEl).width);
+
+  explosionimgEl.style.left       = (thumbRect.left + thumbRect.width  / 2) + 'px';
+  explosionimgEl.style.top        = (thumbRect.top  + thumbRect.height / 2) + 'px';
+  explosionimgEl.style.opacity    = '1';
+  explosionimgEl.style.transition = 'none';
+
+  planeEl.style.opacity      = '0';
+  thumbEl.style.opacity      = '0';
+  c4imgEl.style.opacity      = '0';
+  countdownEl.style.opacity  = '0';
+  msgEl.style.opacity        = '0';
+
+  setTimeout(() => {
+    explosionimgEl.style.transition = 'opacity 0.15s ease';
+    explosionimgEl.style.opacity    = '0';
+  }, 500);
+}
+
+// ── EQ ────────────────────────────────────────────────────────
+const BAR_COUNT = 64;
+const EQ_COLORS = ['#0044ff','#0066ff','#0088ff','#00aaff','#00ccff','#00eeff','#00ff88','#33ff99','#00ff66','#00cc88','#0099ff'];
+
+function barColor(i, total) {
+  return EQ_COLORS[Math.floor((i / total) * EQ_COLORS.length)];
+}
+
+function startOutro() {
+  raveActive = false;
+
+  titleEl.textContent = 'THOMAS APPROVED';
+  titleEl.style.cssText = `
+    font-size: clamp(28px, 8vw, 100px);
+    color: #ffffff;
+    text-shadow: none;
+    line-height: 1.05;
+    text-align: center;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    opacity: 1;
+    transition: opacity 1.5s ease;
+  `;
+
+  smirkEl.style.transition = 'opacity 1.5s ease';
+  smirkEl.style.opacity    = '0';
+  msgEl.style.opacity      = '0';
+
+  setTimeout(() => { approvedEl.style.opacity = '1'; approved1El.style.opacity = '1'; }, 2000);
+
+  eqFading = true;
+
+  setTimeout(() => {
+    titleEl.style.transition   = 'opacity 2s ease';
+    titleEl.style.opacity      = '0';
+    approvedEl.style.transition  = 'opacity 2s ease';
+    approvedEl.style.opacity     = '0';
+    approved1El.style.transition = 'opacity 2s ease';
+    approved1El.style.opacity    = '0';
+
+    setTimeout(() => { theendEl.style.opacity = '1'; }, 1000);
+    fadeAudioOut(6000);
+  }, 9500);
+}
+
+let eqFading   = false;
+let eqFadeAlpha = 1;
+
+function fadeAudioOut(duration) {
+  const start    = performance.now();
+  const startVol = audio.volume;
+  function tick(now) {
+    const t = Math.min((now - start) / duration, 1);
+    audio.volume = startVol * (1 - t);
+    if (t < 1) requestAnimationFrame(tick);
+    else audio.pause();
+  }
+  requestAnimationFrame(tick);
+}
+
+function draw() {
+  requestAnimationFrame(draw);
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  if (eqFading) {
+    eqFadeAlpha = Math.max(0, eqFadeAlpha - 0.003);
+    ctx.globalAlpha = eqFadeAlpha;
+  }
+  if (!ready || !analyser) return;
+
+  analyser.getByteFrequencyData(dataArray);
+
+  const rect = document.getElementById('center').getBoundingClientRect();
+  const padX = Math.max(20, W * 0.04);
+  const padY = Math.max(20, H * 0.04);
+  const left   = rect.left   - padX;
+  const right  = rect.right  + padX;
+  const top    = rect.top    - padY;
+  const bottom = rect.bottom + padY;
+  const boxW   = right - left;
+  const boxH   = bottom - top;
+
+  const step    = dataArray.length / BAR_COUNT;
+  const BAR_GAP = 2;
+  let   idx     = 0;
+
+  function getBar(i) {
+    const s = Math.floor(i * step), e = Math.floor((i + 1) * step);
+    let sum = 0;
+    for (let j = s; j < e; j++) sum += dataArray[j];
+    return (sum / (e - s)) / 255;
+  }
+
+  const nH = Math.round(BAR_COUNT * boxW / (2 * boxW + 2 * boxH));
+  const nV = Math.round((BAR_COUNT - nH * 2) / 2);
+
+  function drawSide(n, isH, dir) {
+    const bSize = isH ? (boxW - BAR_GAP * (n - 1)) / n : (boxH - BAR_GAP * (n - 1)) / n;
+    for (let i = 0; i < n; i++) {
+      const val   = getBar(idx++);
+      const len   = val * (isH ? padY : padX) * 3.5;
+      const color = barColor(i, n);
+      ctx.fillStyle   = color;
+      ctx.shadowColor = color;
+      ctx.shadowBlur  = val * 20;
+      if (isH) {
+        ctx.fillRect(left + i * (bSize + BAR_GAP), dir === 'up' ? top - len : bottom, bSize, len);
+      } else {
+        ctx.fillRect(dir === 'left' ? left - len : right, top + i * (bSize + BAR_GAP), len, bSize);
+      }
+    }
+  }
+
+  const msgRect   = msgEl.getBoundingClientRect();
+  const msgBottom = msgRect.height > 0 ? msgRect.bottom + 8 : 0;
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(0, msgBottom, W, H - msgBottom);
+  ctx.clip();
+  drawSide(nH, true,  'up');
+  drawSide(nH, true,  'down');
+  drawSide(nV, false, 'left');
+  drawSide(nV, false, 'right');
+  ctx.restore();
+  ctx.shadowBlur  = 0;
+  ctx.globalAlpha = 1;
+}
+
+draw();
+</script>
+</body>
+</html>
