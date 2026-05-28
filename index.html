@@ -40,38 +40,38 @@ canvas#eq {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(12px, 3vw, 28px);
+  gap: clamp(6px, 2vw, 28px);
 }
 
 #title-row {
   display: flex;
   align-items: center;
-  gap: clamp(10px, 3vw, 24px);
+  gap: clamp(6px, 2vw, 24px);
 }
 
 #title {
-  font-size: clamp(28px, 8vw, 100px);
+  font-size: clamp(20px, 6vw, 100px);
   line-height: 1.05;
   text-align: center;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   white-space: nowrap;
   color: #ffffff;
 }
 
 #smirk {
-  width: clamp(80px, 18vw, 240px);
+  width: clamp(50px, 12vw, 240px);
   height: auto;
   flex-shrink: 0;
 }
 
 #message {
   position: fixed;
-  top: 8%;
+  top: 6%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: clamp(14px, 4vw, 42px);
+  font-size: clamp(10px, 3.5vw, 42px);
   text-align: center;
-  letter-spacing: clamp(1px, 1vw, 4px);
+  letter-spacing: clamp(1px, 0.5vw, 4px);
   white-space: nowrap;
   color: #ffffff;
   opacity: 0;
@@ -93,14 +93,14 @@ canvas#eq {
 
 #overlay span {
   font-family: 'Harbour', Impact, sans-serif;
-  font-size: clamp(16px, 4vw, 36px);
-  letter-spacing: 6px;
+  font-size: clamp(14px, 4vw, 36px);
+  letter-spacing: 4px;
   color: #000;
 }
 
 #plane {
   position: fixed;
-  width: clamp(180px, 40vw, 500px);
+  width: clamp(100px, 28vw, 500px);
   height: auto;
   z-index: 25;
   opacity: 0;
@@ -111,10 +111,12 @@ canvas#eq {
 #thumb {
   position: fixed;
   z-index: 26;
-  width: clamp(160px, 35vw, 600px);
+  width: clamp(80px, 22vw, 600px);
   height: auto;
   opacity: 0;
   transition: opacity 0.4s ease;
+  right: 0;
+  top: 10px;
 }
 
 #explosion {
@@ -126,9 +128,9 @@ canvas#eq {
 
 #creep2 {
   position: fixed;
-  left: clamp(5px, 2vw, 40px);
+  left: clamp(2px, 1vw, 40px);
   top: 50%;
-  width: clamp(120px, 28vw, 380px);
+  width: clamp(70px, 18vw, 380px);
   height: auto;
   z-index: 25;
   opacity: 0;
@@ -142,7 +144,7 @@ canvas#eq {
 
 #thomasdog {
   position: fixed;
-  width: clamp(160px, 38vw, 480px);
+  width: clamp(90px, 25vw, 480px);
   height: auto;
   z-index: 25;
   opacity: 0;
@@ -152,7 +154,7 @@ canvas#eq {
 
 #c4img {
   position: fixed;
-  width: clamp(80px, 18vw, 380px);
+  width: clamp(40px, 10vw, 380px);
   height: auto;
   z-index: 28;
   opacity: 0;
@@ -161,7 +163,7 @@ canvas#eq {
 
 #explosionimg {
   position: fixed;
-  width: clamp(160px, 40vw, 600px);
+  width: clamp(80px, 25vw, 600px);
   height: auto;
   z-index: 29;
   opacity: 0;
@@ -171,7 +173,7 @@ canvas#eq {
 #countdown {
   position: fixed;
   font-family: Impact, sans-serif;
-  font-size: clamp(60px, 14vw, 140px);
+  font-size: clamp(30px, 10vw, 140px);
   color: #ff0000;
   text-shadow: 3px 3px 0 #000, -1px -1px 0 #000;
   z-index: 29;
@@ -182,8 +184,8 @@ canvas#eq {
 
 #hatsune-wrap {
   position: fixed;
-  bottom: clamp(10px, 3vh, 60px);
-  right: clamp(5px, 3vw, 80px);
+  bottom: clamp(5px, 2vh, 60px);
+  right: clamp(2px, 1vw, 80px);
   z-index: 25;
   opacity: 0;
   transition: opacity 0.4s ease;
@@ -194,50 +196,50 @@ canvas#eq {
 
 #hatsune-bubble {
   background: #ffffff;
-  border: 3px solid #000;
-  border-radius: 12px;
-  padding: clamp(6px, 1.5vw, 10px) clamp(8px, 2vw, 16px);
+  border: 2px solid #000;
+  border-radius: 8px;
+  padding: clamp(3px, 1vw, 10px) clamp(5px, 1.5vw, 16px);
   font-family: 'Comic Sans MS', cursive;
-  font-size: clamp(13px, 3vw, 26px);
+  font-size: clamp(8px, 2vw, 26px);
   color: #000;
   text-align: center;
   white-space: nowrap;
   position: relative;
-  margin-bottom: 8px;
-  box-shadow: 3px 3px 0 #000;
+  margin-bottom: 4px;
+  box-shadow: 2px 2px 0 #000;
 }
 
 #hatsune-bubble::after {
   content: '';
   position: absolute;
-  bottom: -16px;
+  bottom: -12px;
   left: 50%;
   transform: translateX(-50%);
-  border: 8px solid transparent;
+  border: 6px solid transparent;
   border-top-color: #000;
 }
 
 #hatsune-bubble::before {
   content: '';
   position: absolute;
-  bottom: -12px;
+  bottom: -9px;
   left: 50%;
   transform: translateX(-50%);
-  border: 7px solid transparent;
+  border: 5px solid transparent;
   border-top-color: #ffffff;
   z-index: 1;
 }
 
 #hatsune-img {
-  width: clamp(100px, 28vw, 340px);
+  width: clamp(60px, 18vw, 340px);
   height: auto;
 }
 
 #approved {
   position: fixed;
-  bottom: clamp(10px, 2vh, 30px);
-  left: clamp(10px, 2vw, 30px);
-  width: clamp(100px, 22vw, 280px);
+  bottom: clamp(5px, 1vh, 30px);
+  left: clamp(5px, 1vw, 30px);
+  width: clamp(60px, 14vw, 280px);
   height: auto;
   z-index: 25;
   opacity: 0;
@@ -246,9 +248,9 @@ canvas#eq {
 
 #approved1 {
   position: fixed;
-  top: clamp(10px, 2vh, 30px);
-  right: clamp(10px, 2vw, 30px);
-  width: clamp(100px, 22vw, 280px);
+  top: clamp(5px, 1vh, 30px);
+  right: clamp(5px, 1vw, 30px);
+  width: clamp(60px, 14vw, 280px);
   height: auto;
   z-index: 25;
   opacity: 0;
@@ -261,7 +263,7 @@ canvas#eq {
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: 'Harbour', Impact, sans-serif;
-  font-size: clamp(40px, 12vw, 130px);
+  font-size: clamp(28px, 9vw, 130px);
   color: #ffffff;
   letter-spacing: 4px;
   text-align: center;
@@ -274,9 +276,9 @@ canvas#eq {
 
 #burrito {
   position: fixed;
-  top: clamp(10px, 2vh, 20px);
-  left: clamp(10px, 2vw, 20px);
-  width: clamp(100px, 22vw, 300px);
+  top: clamp(5px, 1vh, 20px);
+  left: clamp(5px, 1vw, 20px);
+  width: clamp(60px, 14vw, 300px);
   height: auto;
   z-index: 25;
   opacity: 0;
@@ -334,8 +336,6 @@ const countdownEl   = document.getElementById('countdown');
 const explosionimgEl= document.getElementById('explosionimg');
 const planeEl       = document.getElementById('plane');
 const thumbEl       = document.getElementById('thumb');
-const expCanvas     = document.getElementById('explosion');
-const expCtx        = expCanvas.getContext('2d');
 
 let audioCtx, analyser, dataArray, source, ready = false;
 
@@ -346,12 +346,6 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-// helper: get rendered size of an img element
-function imgSize(el) {
-  return { w: el.offsetWidth, h: el.offsetHeight };
-}
-
-// ── Click / tap handler ───────────────────────────────────────
 function startCelebration() {
   document.getElementById('overlay').style.display = 'none';
 
@@ -365,7 +359,6 @@ function startCelebration() {
   ready = true;
   audio.play();
 
-  positionThumb();
   thumbEl.style.opacity = '1';
 
   runWords();
@@ -383,15 +376,6 @@ function startCelebration() {
 const overlayEl = document.getElementById('overlay');
 overlayEl.addEventListener('click', startCelebration);
 overlayEl.addEventListener('touchend', function(e) { e.preventDefault(); startCelebration(); });
-
-// ── Thumb positioning (top-right) ─────────────────────────────
-function positionThumb() {
-  const W = window.innerWidth;
-  const tw = thumbEl.offsetWidth || parseInt(getComputedStyle(thumbEl).width);
-  thumbEl.style.right = '0px';
-  thumbEl.style.top   = '20px';
-  thumbEl.style.left  = '';
-}
 
 // ── Rave ─────────────────────────────────────────────────────
 const titleColors = ['#ffffff','#00aaff','#00ff88','#4488ff','#00eeff','#ffffff','#33ff99','#0066ff'];
@@ -461,7 +445,7 @@ function animateThomasdog() {
     const elapsed  = ts - startTime;
     const t        = Math.min(elapsed / duration, 1);
     const pingpong = Math.sin(t * Math.PI * laps * 2);
-    const range    = W / 2 - imgW * 0.6;
+    const range    = Math.max(10, W / 2 - imgW * 0.6);
     const x        = (W / 2 - imgW / 2) + pingpong * range;
 
     thomasdogEl.style.left = x + 'px';
@@ -488,17 +472,8 @@ function animateThomasdog() {
 function showThomasdogExplosion(cx, cy) {
   const expEl = document.createElement('img');
   expEl.src = 'explosion.png';
-  const expW = Math.min(window.innerWidth * 0.5, 600);
-  expEl.style.cssText = `
-    position: fixed;
-    width: ${expW}px;
-    height: auto;
-    left: ${cx - expW/2}px;
-    top: ${cy - expW/2}px;
-    z-index: 50;
-    pointer-events: none;
-    opacity: 1;
-  `;
+  const expW = Math.min(window.innerWidth * 0.4, 600);
+  expEl.style.cssText = `position:fixed;width:${expW}px;height:auto;left:${cx-expW/2}px;top:${cy-expW/2}px;z-index:50;pointer-events:none;opacity:1;`;
   document.body.appendChild(expEl);
   setTimeout(() => {
     expEl.style.transition = 'opacity 0.15s ease';
@@ -512,7 +487,6 @@ function animatePlane() {
   const W = window.innerWidth;
   const H = window.innerHeight;
 
-  // thumb is pinned top-right; get its actual rendered rect
   const thumbRect = thumbEl.getBoundingClientRect();
   const thumbCX   = thumbRect.left + thumbRect.width  / 2;
   const thumbCY   = thumbRect.top  + thumbRect.height / 2;
@@ -522,8 +496,8 @@ function animatePlane() {
 
   const startX = -planeW;
   const startY = H - planeH - 20;
-  const endX   = thumbCX - planeW / 2 - 60;
-  const endY   = thumbCY - 80;
+  const endX   = thumbCX - planeW / 2 - 20;
+  const endY   = thumbCY - 40;
 
   const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
 
@@ -537,13 +511,10 @@ function animatePlane() {
 
   function step(ts) {
     if (!startTime) startTime = ts;
-    const elapsed = ts - startTime;
-    const t       = Math.min(elapsed / duration, 1);
-    const ease    = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
-
+    const t    = Math.min((ts - startTime) / duration, 1);
+    const ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
     planeEl.style.left = (startX + (endX - startX) * ease) + 'px';
     planeEl.style.top  = (startY + (endY - startY) * ease) + 'px';
-
     if (t < 1) requestAnimationFrame(step);
     else planeEl.style.opacity = '0';
   }
@@ -556,23 +527,21 @@ function showC4() {
   const c4W  = c4imgEl.offsetWidth  || parseInt(getComputedStyle(c4imgEl).width);
   const c4H  = c4imgEl.offsetHeight || c4W;
 
-  // center c4 horizontally under thumb
   const c4Left = thumbRect.left + thumbRect.width / 2 - c4W / 2;
-  const c4Top  = thumbRect.bottom - 30; // just below thumb bottom
+  const c4Top  = thumbRect.bottom - 10;
 
   c4imgEl.style.left    = c4Left + 'px';
   c4imgEl.style.top     = c4Top  + 'px';
   c4imgEl.style.opacity = '1';
 
-  const cdSize = Math.min(window.innerWidth * 0.18, 140);
+  const cdSize = Math.min(window.innerWidth * 0.14, 140);
   countdownEl.style.fontSize = cdSize + 'px';
   countdownEl.style.left     = (c4Left + c4W / 2 - cdSize * 0.4) + 'px';
-  countdownEl.style.top      = (c4Top + c4H + 4) + 'px';
+  countdownEl.style.top      = (c4Top + c4H + 2) + 'px';
 
-  const ticks = ['3','2','1'];
-  ticks.forEach((n, i) => {
+  ['3','2','1'].forEach((n, i) => {
     setTimeout(() => {
-      countdownEl.textContent  = n;
+      countdownEl.textContent     = n;
       countdownEl.style.opacity   = '1';
       countdownEl.style.transform = 'scale(1.4)';
       countdownEl.style.transition = 'none';
@@ -587,19 +556,15 @@ function showC4() {
 
 function showExplosionImg() {
   const thumbRect = thumbEl.getBoundingClientRect();
-  const expW = explosionimgEl.offsetWidth || parseInt(getComputedStyle(explosionimgEl).width);
-
   explosionimgEl.style.left       = (thumbRect.left + thumbRect.width  / 2) + 'px';
   explosionimgEl.style.top        = (thumbRect.top  + thumbRect.height / 2) + 'px';
   explosionimgEl.style.opacity    = '1';
   explosionimgEl.style.transition = 'none';
-
   planeEl.style.opacity      = '0';
   thumbEl.style.opacity      = '0';
   c4imgEl.style.opacity      = '0';
   countdownEl.style.opacity  = '0';
   msgEl.style.opacity        = '0';
-
   setTimeout(() => {
     explosionimgEl.style.transition = 'opacity 0.15s ease';
     explosionimgEl.style.opacity    = '0';
@@ -616,10 +581,9 @@ function barColor(i, total) {
 
 function startOutro() {
   raveActive = false;
-
   titleEl.textContent = 'THOMAS APPROVED';
   titleEl.style.cssText = `
-    font-size: clamp(28px, 8vw, 100px);
+    font-size: clamp(20px, 6vw, 100px);
     color: #ffffff;
     text-shadow: none;
     line-height: 1.05;
@@ -629,34 +593,28 @@ function startOutro() {
     opacity: 1;
     transition: opacity 1.5s ease;
   `;
-
   smirkEl.style.transition = 'opacity 1.5s ease';
   smirkEl.style.opacity    = '0';
   msgEl.style.opacity      = '0';
-
   setTimeout(() => { approvedEl.style.opacity = '1'; approved1El.style.opacity = '1'; }, 2000);
-
   eqFading = true;
-
   setTimeout(() => {
-    titleEl.style.transition   = 'opacity 2s ease';
-    titleEl.style.opacity      = '0';
+    titleEl.style.transition     = 'opacity 2s ease';
+    titleEl.style.opacity        = '0';
     approvedEl.style.transition  = 'opacity 2s ease';
     approvedEl.style.opacity     = '0';
     approved1El.style.transition = 'opacity 2s ease';
     approved1El.style.opacity    = '0';
-
     setTimeout(() => { theendEl.style.opacity = '1'; }, 1000);
     fadeAudioOut(6000);
   }, 9500);
 }
 
-let eqFading   = false;
+let eqFading    = false;
 let eqFadeAlpha = 1;
 
 function fadeAudioOut(duration) {
-  const start    = performance.now();
-  const startVol = audio.volume;
+  const start = performance.now(), startVol = audio.volume;
   function tick(now) {
     const t = Math.min((now - start) / duration, 1);
     audio.volume = startVol * (1 - t);
@@ -678,44 +636,38 @@ function draw() {
 
   analyser.getByteFrequencyData(dataArray);
 
-  const rect = document.getElementById('center').getBoundingClientRect();
-  const padX = Math.max(20, W * 0.04);
-  const padY = Math.max(20, H * 0.04);
+  const rect   = document.getElementById('center').getBoundingClientRect();
+  const padX   = Math.max(12, W * 0.03);
+  const padY   = Math.max(12, H * 0.03);
   const left   = rect.left   - padX;
   const right  = rect.right  + padX;
   const top    = rect.top    - padY;
   const bottom = rect.bottom + padY;
   const boxW   = right - left;
   const boxH   = bottom - top;
-
-  const step    = dataArray.length / BAR_COUNT;
+  const step   = dataArray.length / BAR_COUNT;
   const BAR_GAP = 2;
-  let   idx     = 0;
+  let idx = 0;
 
   function getBar(i) {
-    const s = Math.floor(i * step), e = Math.floor((i + 1) * step);
+    const s = Math.floor(i*step), e = Math.floor((i+1)*step);
     let sum = 0;
     for (let j = s; j < e; j++) sum += dataArray[j];
-    return (sum / (e - s)) / 255;
+    return (sum/(e-s))/255;
   }
 
-  const nH = Math.round(BAR_COUNT * boxW / (2 * boxW + 2 * boxH));
-  const nV = Math.round((BAR_COUNT - nH * 2) / 2);
+  const nH = Math.round(BAR_COUNT * boxW / (2*boxW + 2*boxH));
+  const nV = Math.round((BAR_COUNT - nH*2) / 2);
 
   function drawSide(n, isH, dir) {
-    const bSize = isH ? (boxW - BAR_GAP * (n - 1)) / n : (boxH - BAR_GAP * (n - 1)) / n;
+    const bSize = isH ? (boxW-BAR_GAP*(n-1))/n : (boxH-BAR_GAP*(n-1))/n;
     for (let i = 0; i < n; i++) {
-      const val   = getBar(idx++);
-      const len   = val * (isH ? padY : padX) * 3.5;
+      const val = getBar(idx++);
+      const len = val * (isH ? padY : padX) * 3.5;
       const color = barColor(i, n);
-      ctx.fillStyle   = color;
-      ctx.shadowColor = color;
-      ctx.shadowBlur  = val * 20;
-      if (isH) {
-        ctx.fillRect(left + i * (bSize + BAR_GAP), dir === 'up' ? top - len : bottom, bSize, len);
-      } else {
-        ctx.fillRect(dir === 'left' ? left - len : right, top + i * (bSize + BAR_GAP), len, bSize);
-      }
+      ctx.fillStyle = color; ctx.shadowColor = color; ctx.shadowBlur = val*20;
+      if (isH) ctx.fillRect(left+i*(bSize+BAR_GAP), dir==='up'?top-len:bottom, bSize, len);
+      else ctx.fillRect(dir==='left'?left-len:right, top+i*(bSize+BAR_GAP), len, bSize);
     }
   }
 
@@ -725,8 +677,8 @@ function draw() {
   ctx.beginPath();
   ctx.rect(0, msgBottom, W, H - msgBottom);
   ctx.clip();
-  drawSide(nH, true,  'up');
-  drawSide(nH, true,  'down');
+  drawSide(nH, true, 'up');
+  drawSide(nH, true, 'down');
   drawSide(nV, false, 'left');
   drawSide(nV, false, 'right');
   ctx.restore();
